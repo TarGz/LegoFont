@@ -1,0 +1,10 @@
+ofx3DModelLoader
+ofxAssimpModelLoader
+ofxGui
+ofxNetwork
+ofxOpenCv
+ofxSvg
+ofxThreadedImageLoader
+ofxVectorGraphics
+ofxXmlSettings
+ofxSTL
