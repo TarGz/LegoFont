@@ -71,8 +71,8 @@ void icosahedron::mousePressed(int x, int y, int button){
 //--------------------------------------------------------------
 void icosahedron::keyPressed(int key){
 
-
-    int numFacets = 12;
+    vector<ofxSTLFacet>& facets = mesh.getFacets();
+    int numFacets = facets.size();
     stlExporter.beginModel("some model");
     for(int i=0; i<numFacets; i++){
         stlExporter.addTriangle(facets[i].vert1, facets[i].vert2, facets[i].vert3, facets[i].normal);
