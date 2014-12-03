@@ -2,9 +2,9 @@
 #include "ofMain.h"
 #include "ofxSTL.h"
 
-const int X = 100;
-const int Y = 50;
-const int Z = 50;
+const int X = 300;
+const int Y = 20;
+const int Z = 70;
 
 //This is the data for the vertices, which keeps the data as simple as possible:
 //static GLfloat vdata[12][3] = {
@@ -55,6 +55,8 @@ public:
     void mousePressed(int x, int y, int button);
     void keyPressed(int key);
     void keyReleased(int key);
+    void addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c);
+    void addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c, ofVec3f d);
     //current state of the rotation
     ofQuaternion curRot;
     
@@ -67,4 +69,6 @@ public:
     // Export
     ofxSTLExporter stlExporter;
     ofxSTLImporter stlImporter;
+    
+    ofVec3f vertex;
 };

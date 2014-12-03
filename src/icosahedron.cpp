@@ -3,15 +3,20 @@
 void icosahedron::setup()
 {
     dampen = .4;
+    mesh.enableNormals();
+    
+    
+    
     ofColor color(255, 0, 0); float hue = 254.f;
     
     //Here’s where we finally add all the vertices to our mesh and add a color at each vertex:
-    for (int i = 0; i< sizeof(vdata) ; ++i)
+    for (int i = 0; i < sizeof(vdata) ; ++i)
     {
-        mesh.addVertex( ofVec3f( vdata[i][0], vdata[i][1], vdata[i][2] ));
+        vertex = ofVec3f( vdata[i][0], vdata[i][1], vdata[i][2] );
+        mesh.addVertex(vertex );
         mesh.addColor(color);
         color.setHue( hue );
-        hue -= 10.f;
+        hue -= 20.f;
     }
     
     for (int i = 0; i< 12 ; ++i)
@@ -19,8 +24,157 @@ void icosahedron::setup()
         mesh.addIndex(indices[i][0]);
         mesh.addIndex(indices[i][1]);
         mesh.addIndex(indices[i][2]);
+
     }
+    
+//    // FRONT
+//    addFace(mesh,
+//            ofVec3f(-X,-Y,Z),
+//            ofVec3f(X,-Y,Z),
+//            ofVec3f(-X,Y,Z),
+//            ofVec3f(X,Y,Z)
+//            );
+//    // BACK
+//    addFace(mesh,
+//            ofVec3f(-X,-Y,-Z),
+//            ofVec3f(X,-Y,-Z),
+//            ofVec3f(-X,Y,-Z),
+//            ofVec3f(X,Y,-Z)
+//            );
+//    // RIGHT
+//    addFace(mesh,
+//            ofVec3f(X,-Y,Z),
+//            ofVec3f(X,Y,Z),
+//            ofVec3f(X,-Y,-Z),
+//            ofVec3f(X,Y,-Z)
+//            
+//            );
+//    // LEFT
+//    addFace(mesh,
+//            ofVec3f(-X,-Y,Z),
+//            ofVec3f(-X,Y,Z),
+//            ofVec3f(-X,-Y,-Z),
+//            ofVec3f(-X,Y,-Z)
+//            );
+//    // TOP
+//    addFace(mesh,
+//            ofVec3f(-X,-Y,Z),
+//            ofVec3f(X,-Y,Z),
+//            ofVec3f(-X,-Y,-Z),
+//            ofVec3f(X,-Y,-Z)
+//            );
+//    // BOTTOM
+//    addFace(mesh,
+//            ofVec3f(-X,Y,Z),
+//            ofVec3f(X,Y,Z),
+//            ofVec3f(-X,Y,-Z),
+//            ofVec3f(X,Y,-Z)
+//            );
+    
+    
+    
+    
+    
+    
+    
+//    // BLANC
+//    
+//    addFace(mesh,
+//            ofVec3f(-X,-Y,Z),
+//            ofVec3f(X,-Y,Z),
+//            ofVec3f(-X,Y,Z),
+//            ofVec3f(X,Y,Z)
+//            );
+//    
+//    // VERT
+//    
+//    addFace(mesh,
+//            ofVec3f(X,-Y,Z),
+//            ofVec3f(X,Y,Z),
+//            ofVec3f(X,-Y,-Z),
+//            ofVec3f(X,Y,-Z)
+//            );
+//    // ROUGE
+//    addFace(mesh,
+//            ofVec3f(-X,-Y,Z),
+//            ofVec3f(X,-Y,Z),
+//            ofVec3f(-X,-Y,-Z),
+//            ofVec3f(X,-Y,-Z)
+//            );
+//
+//    // JAUNE
+//    addFace(mesh,
+//            ofVec3f(-X,-Y,-Z),
+//            ofVec3f(X,-Y,-Z),
+//            ofVec3f(-X,Y,-Z),
+//            ofVec3f(X,Y,-Z)
+//            );
+//    
+//    // BLEU
+//    addFace(mesh,
+//            ofVec3f(-X,-Y,Z),
+//            ofVec3f(-X,Y,Z),
+//            ofVec3f(-X,-Y,-Z),
+//            ofVec3f(-X,Y,-Z)
+//            
+//            );
+//    
+//    // ORANGE
+//    addFace(mesh,
+//            ofVec3f(-X,Y,Z),
+//            ofVec3f(X,Y,Z),
+//            ofVec3f(-X,Y,-Z),
+//            ofVec3f(X,Y,-Z)
+//            
+//            
+//            );
+//    
+//    addFace(mesh,
+//            ofVec3f(,,),
+//            ofVec3f(,,),
+//            ofVec3f(,,),
+//            ofVec3f(,,)
+//            );
+//
+    
+    
+    
+    
+    
+    
+//    ofEnableDepthTest();
 }
+
+
+
+//--------------------------------------------------------------
+void icosahedron::addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c) {
+	ofVec3f normal = ((b - a).cross(c - a)).normalize();
+	mesh.addNormal(normal);
+	mesh.addVertex(a);
+  
+    ofLog(OF_LOG_NOTICE, ofToString(mesh.getNumVertices()));
+    
+	mesh.addNormal(normal);
+	mesh.addVertex(b);
+    ofLog(OF_LOG_NOTICE, ofToString(mesh.getNumVertices()));
+    
+	mesh.addNormal(normal);
+	mesh.addVertex(c);
+//    mesh.addIndex(mesh.getNumVertices());
+    ofLog(OF_LOG_NOTICE, ofToString(mesh.getNumVertices()));
+    
+    
+    
+
+}
+
+//--------------------------------------------------------------
+void icosahedron::addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c, ofVec3f d) {
+	addFace(mesh, a, b, c);
+	addFace(mesh, b, c, d);
+}
+
 
 // give it a little spin
 void icosahedron::update(){
@@ -37,13 +191,9 @@ void icosahedron::draw()
     ofVec3f axis;
     float angle;
     curRot.getRotate(angle, axis);
-    
     ofRotate(angle, axis.x, axis.y, axis.z);
-    //Now it’s time to draw the mesh. The ofMesh has three drawing methods: drawFaces(),
-    //which draws all the faces of the mesh filled; drawWireframe(), which draws lines
-    //along each triangle; and drawVertices(), which draws a point at each vertex.
-    //Since we want to see the colors we’re drawing, we’ll draw all the faces:
-//    mesh.drawFaces();
+
+// mesh.drawFaces();
     mesh.drawWireframe();
     ofPopMatrix();
 }
@@ -59,7 +209,7 @@ void icosahedron::mouseDragged(int x, int y, int button){
     curRot *= yRot*xRot;
     lastMouse = mouse;
     
-    ofLog(OF_LOG_NOTICE, "drag " + ofToString(mouse.x) + ":" + ofToString(mouse.y));
+//    ofLog(OF_LOG_NOTICE, "drag " + ofToString(mouse.x) + ":" + ofToString(mouse.y));
 }
 
 //--------------------------------------------------------------
@@ -70,17 +220,8 @@ void icosahedron::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void icosahedron::keyPressed(int key){
-
-    vector<ofxSTLFacet>& facets = mesh.getFacets();
-    int numFacets = facets.size();
-    stlExporter.beginModel("some model");
-    for(int i=0; i<numFacets; i++){
-        stlExporter.addTriangle(facets[i].vert1, facets[i].vert2, facets[i].vert3, facets[i].normal);
-    }
-    stlExporter.useASCIIFormat(true); //export as ASCII (default is binary)
-    stlExporter.saveModel("testASCII.stl");
-    stlExporter.useASCIIFormat(false); //export as binary
-    stlExporter.saveModel("testBin.stl");
+    ofLog(OF_LOG_NOTICE, "saving " +  ofToString(key));
+    mesh.save("test.ply",false);
 }
 
 //--------------------------------------------------------------
