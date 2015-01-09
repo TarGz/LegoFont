@@ -16,7 +16,7 @@ void icosahedron::setup()
         mesh.addVertex(vertex );
         mesh.addColor(color);
         color.setHue( hue );
-        hue -= 20.f;
+//        hue -= 20.f;
     }
     
     for (int i = 0; i< 12 ; ++i)
@@ -193,9 +193,9 @@ void icosahedron::draw()
     curRot.getRotate(angle, axis);
     ofRotate(angle, axis.x, axis.y, axis.z);
 
-// mesh.drawFaces();
+//    mesh.drawFaces();
     mesh.drawWireframe();
-    ofPopMatrix();
+//    ofPopMatrix();
 }
 
 //--------------------------------------------------------------

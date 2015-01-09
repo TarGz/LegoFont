@@ -30,7 +30,7 @@ static GLfloat vdata[8][3] = {
 //You’ll notice that for 12 vertices you need 20 indices of 3 vertices each:
 static GLint indices[12][3] = {
     {0,1,2},
-    {1,2,3},
+    {2,1,3},
     {0,1,4},
     {4,5,1},
     {1,5,3},
