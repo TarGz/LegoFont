@@ -1,6 +1,8 @@
 #pragma once
 #include "ofMain.h"
 #include "ofxSTL.h"
+#include "ofxSVG.h"
+
 
 const int X = 300;
 const int Y = 20;
@@ -71,4 +73,7 @@ public:
     ofxSTLImporter stlImporter;
     
     ofVec3f vertex;
+    ofxSVG svg;
+    float step;
+    vector<ofPolyline> outlines;
 };
