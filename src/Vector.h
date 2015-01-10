@@ -24,11 +24,21 @@ public:
     ofxSVG svg;
     float step;
     vector<ofPolyline> outlines;
+    
     ofMesh mesh;
+    ofMesh side;
     vector<ofMesh> meshes;
     
-    int depth;
-    ofMesh side;
+    int plateDepth;
+    
+    // LDU Convertion
+    float ldu;
+    // BRICK SIZE
+    float brickWidth;
+    float brickHeight;
+    float plateHeight;
+    float studDiameter;
+    float studHeight;
     
     
     ofQuaternion curRot;

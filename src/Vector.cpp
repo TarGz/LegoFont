@@ -4,9 +4,23 @@
 void Vector::setup(){
 	ofSetVerticalSync(true);
 	dampen = .4;
-    depth  =20;
+    plateDepth  =20;
+    
+    // LDU Convertion
+    ldu = 0.4;
+    // BRICK SIZE
+    brickWidth = 20*ldu;
+    brickHeight = 24*ldu;
+    plateHeight = 8*ldu*10;
+    float studDiameter;
+    float studHeight;
+    
+     ofLog(OF_LOG_NOTICE, "brickWidth " + ofToString(brickWidth));
+    
+    
 	ofBackground(100, 100, 100);
-	ofSetColor(255);
+    ofEnableAlphaBlending();
+	ofSetColor(255,255,255,100);
 	
     
     // PLATE
@@ -14,6 +28,9 @@ void Vector::setup(){
 	for (int i = 0; i < svg.getNumPath(); i++){
 		ofPath p = svg.getPathAt(i);
         
+
+        ofLog(OF_LOG_NOTICE, "hasOutline " + ofToString(p.hasOutline()));
+        vector<ofPolyline> outline = p.getOutline();
         
         ofMesh front = p.getTessellation();
         ofMesh back = front;
@@ -23,44 +40,48 @@ void Vector::setup(){
         ofVec3f* u = front.getVerticesPointer();
         
         // push the vertices of the back face back by depth
-        for(int j=0; j< back.getNumVertices(); j++)
+        for(int j=0; j< front.getNumVertices(); j++)
         {
-            
-            v[j].z += depth;
-            
-            ofPoint p1 = u[j];
-            ofPoint p2 = v[j];
-
-            side.addVertex(p1);
-            side.addVertex(p2);
-            side.addVertex(ofPoint(p1.x, p1.y, p1.z+depth));
-            
-//            side.addVertex(ofPoint(p1.x, p1.y, p1.z+depth));
-//            side.addVertex(ofPoint(p2.x, p2.y, p2.z+depth));
-//            side.addVertex(p2);
+            v[j].z += plateHeight;
         }
         
+        
+        //make side mesh by using outlines
+        ofVec3f zOffset(0,0,plateHeight);
+        for (int k=0; k<outline.size(); k++) {
+            ofLog(OF_LOG_NOTICE, "outline " + ofToString(k));
+            int iMax = outline[k].getVertices().size();
+            
+            for (int i=0; i<iMax; i++) {
+                
+                ofVec3f a = outline[k].getVertices()[i];
+                ofVec3f b = outline[k].getVertices()[i] + zOffset;
+                ofVec3f c = outline[k].getVertices()[(i+1) % iMax] + zOffset;
+                ofVec3f d = outline[k].getVertices()[(i+1) % iMax];
+                
+                side.addVertex(a);
+                side.addVertex(b);
+                side.addVertex(c);
+                
+                side.addVertex(a);
+                side.addVertex(c);
+                side.addVertex(d);
+                
+//                side.addTriangle(i-2,i-1,i);
+            }
+        }
+        // Push sides
         meshes.push_back( front );
         meshes.push_back( back );
         meshes.push_back( side );
-        
-        
-		// svg defaults to non zero winding which doesn't look so good as contours
-//		p.setPolyWindingMode(OF_POLY_WINDING_ODD);
-//		vector<ofPolyline>& lines = p.getOutline();
-//		for(int j=0;j<(int)lines.size();j++){
-//			outlines.push_back(lines[j].getResampledBySpacing(1));
-//		}
+
 	}
 }
 
 
 //--------------------------------------------------------------
 void Vector::update(){
-	step += 0.001;
-	if (step > 1) {
-		step -= 1;
-	}
+
 }
 
 //--------------------------------------------------------------
@@ -73,22 +94,11 @@ void Vector::draw(){
     float angle;
     curRot.getRotate(angle, axis);
     ofRotate(angle, axis.x, axis.y, axis.z);
-//	ofRotate(mouseX);
-//	float scale = ofMap(mouseY, 0, ofGetHeight(), .5, 10);
-//	ofScale(scale, scale, scale);
-//	ofTranslate(-250, -250);
-//	if(ofGetMousePressed()) {
-//		ofNoFill();
-//		for (int i = 0; i < (int)outlines.size(); i++){
-//			meshs[i].drawWireframe();
-//		}
-//	} else {
-//		svg.draw();
-//	}
-//
+
     ofNoFill();
     for (int i = 0; i < meshes.size(); i++){
         meshes[i].drawWireframe();
+        meshes[i].drawFaces();
     }
 	ofPopMatrix();
 }
