@@ -8,6 +8,8 @@ void Vector::setup(){
 	ofBackground(100, 100, 100);
 	ofSetColor(255);
 	
+    
+    // PLATE
 	svg.load("map_all.svg");
 	for (int i = 0; i < svg.getNumPath(); i++){
 		ofPath p = svg.getPathAt(i);
@@ -26,8 +28,8 @@ void Vector::setup(){
             
             v[j].z += depth;
             
-            ofPoint p1 = v[j];
-            ofPoint p2 = u[j];
+            ofPoint p1 = u[j];
+            ofPoint p2 = v[j];
 
             side.addVertex(p1);
             side.addVertex(p2);
@@ -44,11 +46,11 @@ void Vector::setup(){
         
         
 		// svg defaults to non zero winding which doesn't look so good as contours
-		p.setPolyWindingMode(OF_POLY_WINDING_ODD);
-		vector<ofPolyline>& lines = p.getOutline();
-		for(int j=0;j<(int)lines.size();j++){
-			outlines.push_back(lines[j].getResampledBySpacing(1));
-		}
+//		p.setPolyWindingMode(OF_POLY_WINDING_ODD);
+//		vector<ofPolyline>& lines = p.getOutline();
+//		for(int j=0;j<(int)lines.size();j++){
+//			outlines.push_back(lines[j].getResampledBySpacing(1));
+//		}
 	}
 }
 
@@ -85,7 +87,7 @@ void Vector::draw(){
 //	}
 //
     ofNoFill();
-    for (int i = 0; i < (int)outlines.size(); i++){
+    for (int i = 0; i < meshes.size(); i++){
         meshes[i].drawWireframe();
     }
 	ofPopMatrix();
