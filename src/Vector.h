@@ -4,6 +4,7 @@
 #include "ofxSvg.h"
 #include "ofMesh.h"
 
+
 class Vector : public ofBaseApp{
     
 public:
@@ -26,6 +27,9 @@ public:
     vector<ofPolyline> outlines;
     
     ofMesh mesh;
+
+    ofMesh front;
+    ofMesh back;
     ofMesh side;
     vector<ofMesh> meshes;
     

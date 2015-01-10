@@ -11,7 +11,7 @@ void Vector::setup(){
     // BRICK SIZE
     brickWidth = 20*ldu;
     brickHeight = 24*ldu;
-    plateHeight = 8*ldu*10;
+    plateHeight = 8*ldu;
     float studDiameter;
     float studHeight;
     
@@ -32,9 +32,9 @@ void Vector::setup(){
         ofLog(OF_LOG_NOTICE, "hasOutline " + ofToString(p.hasOutline()));
         vector<ofPolyline> outline = p.getOutline();
         
-        ofMesh front = p.getTessellation();
-        ofMesh back = front;
-        ofMesh side;
+        front = p.getTessellation();
+        back = front;
+
         
         ofVec3f* v = back.getVerticesPointer();
         ofVec3f* u = front.getVerticesPointer();
@@ -74,6 +74,14 @@ void Vector::setup(){
         meshes.push_back( front );
         meshes.push_back( back );
         meshes.push_back( side );
+        
+//        for (int m=0; m<meshes.size(); m++) {
+//            int vmax = meshes[m].getVertices().size();
+//            
+//            for (int n=0; n<vmax; n++) {
+//                mesh.addVertex(meshes[m].getVertex(n));
+//            }
+//        }
 
 	}
 }
@@ -100,17 +108,25 @@ void Vector::draw(){
         meshes[i].drawWireframe();
         meshes[i].drawFaces();
     }
+    
+//    mesh.drawFaces();
 	ofPopMatrix();
 }
 
 //--------------------------------------------------------------
 void Vector::keyPressed(int key){
-	
+//    for (int i = 0; i < meshes.size(); i++){
+//        meshes[i].save("mesh"+ofToString(i)+".ply");
+//    }
+    front.save("front.ply");
+    back.save("back.ply");
+    side.save("side.ply");
 }
 
 //--------------------------------------------------------------
 void Vector::keyReleased(int key){
-	
+    ofLog(OF_LOG_NOTICE, "saving " +  ofToString(key));
+//    mesh.save("3d.ply",false);
 }
 
 //--------------------------------------------------------------
