@@ -97,75 +97,36 @@ void Vector::update(){
 void Vector::draw(){
     cam.begin();
     
-	ofRotateX(ofRadToDeg(.5));
-	ofRotateY(ofRadToDeg(-.5));
+    ofRotateX(180);
 	
-	
-	
-
-    
-//	ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
-//    ofPushMatrix();
-//    ofTranslate(ofGetWidth()/2, ofGetHeight()/2, 40);
-//    
-//    ofVec3f axis;
-//    float angle;
-//    curRot.getRotate(angle, axis);
-//    ofRotate(angle, axis.x, axis.y, axis.z);
-
-//    ofNoFill();
     for (int i = 0; i < meshes.size(); i++){
         meshes[i].drawWireframe();
         meshes[i].drawFaces();
-        
     }
     cam.end();
-    drawInteractionArea();
+
 }
-//--------------------------------------------------------------
-void Vector::drawInteractionArea(){
-	ofRectangle vp = ofGetCurrentViewport();
-	float r = MIN(vp.width, vp.height) * 0.5f;
-	float x = vp.width * 0.5f;
-	float y = vp.height * 0.5f;
-	
-	ofPushStyle();
-	ofSetLineWidth(3);
-	ofSetColor(255, 255, 0);
-	ofNoFill();
-	glDepthMask(false);
-	ofCircle(x, y, r);
-	glDepthMask(true);
-	ofPopStyle();
-}
+
 //--------------------------------------------------------------
 void Vector::keyPressed(int key){
     ofLog(OF_LOG_NOTICE, "key: " +  ofToString(key));
     
-    if(key == 2305){
-        shift = true;
-    }
     
 	switch(key) {
-		case 'C':
-		case 'c':
-			if(cam.getMouseInputEnabled()) cam.disableMouseInput();
-			else cam.enableMouseInput();
-			break;
 			
 		case 'F':
 		case 'f':
 			ofToggleFullscreen();
 			break;
-		case 'H':
-		case 'h':
-		
+		case 'S':
+		case 's':
+//            front.save("front.ply");
+//            back.save("back.ply");
+//            side.save("side.ply");
 			break;
 	}
     
-    //front.save("front.ply");
-    //back.save("back.ply");
-    //side.save("side.ply");
+
 }
 
 //--------------------------------------------------------------
@@ -203,7 +164,7 @@ void Vector::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void Vector::mousePressed(int x, int y, int button){
-	lastMouse = ofVec2f(x,y);
+//	lastMouse = ofVec2f(x,y);
 }
 
 //--------------------------------------------------------------
