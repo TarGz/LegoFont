@@ -11,7 +11,7 @@ void Vector::setup(){
     // BRICK SIZE
     brickWidth = 20*ldu;
     brickHeight = 24*ldu;
-    plateHeight = 8*ldu;
+    plateHeight = 8*ldu*20;
     float studDiameter;
     float studHeight;
     
@@ -20,7 +20,7 @@ void Vector::setup(){
     
 	ofBackground(100, 100, 100);
     ofEnableAlphaBlending();
-	ofSetColor(255,255,255,100);
+	ofSetColor(100,255,255,100);
 	
     
     // PLATE
@@ -66,22 +66,14 @@ void Vector::setup(){
                 side.addVertex(a);
                 side.addVertex(c);
                 side.addVertex(d);
-                
-//                side.addTriangle(i-2,i-1,i);
             }
         }
         // Push sides
         meshes.push_back( front );
         meshes.push_back( back );
-        meshes.push_back( side );
+//        meshes.push_back( side );
         
-//        for (int m=0; m<meshes.size(); m++) {
-//            int vmax = meshes[m].getVertices().size();
-//            
-//            for (int n=0; n<vmax; n++) {
-//                mesh.addVertex(meshes[m].getVertex(n));
-//            }
-//        }
+
 
 	}
 }
@@ -108,16 +100,11 @@ void Vector::draw(){
         meshes[i].drawWireframe();
         meshes[i].drawFaces();
     }
-    
-//    mesh.drawFaces();
 	ofPopMatrix();
 }
 
 //--------------------------------------------------------------
 void Vector::keyPressed(int key){
-//    for (int i = 0; i < meshes.size(); i++){
-//        meshes[i].save("mesh"+ofToString(i)+".ply");
-//    }
     front.save("front.ply");
     back.save("back.ply");
     side.save("side.ply");
@@ -126,7 +113,6 @@ void Vector::keyPressed(int key){
 //--------------------------------------------------------------
 void Vector::keyReleased(int key){
     ofLog(OF_LOG_NOTICE, "saving " +  ofToString(key));
-//    mesh.save("3d.ply",false);
 }
 
 //--------------------------------------------------------------
@@ -144,13 +130,10 @@ void Vector::mouseDragged(int x, int y, int button){
     ofQuaternion xRot((y-lastMouse.y)*dampen, ofVec3f(-1,0,0));
     curRot *= yRot*xRot;
     lastMouse = mouse;
-    
-    //    ofLog(OF_LOG_NOTICE, "drag " + ofToString(mouse.x) + ":" + ofToString(mouse.y));
 }
 
 //--------------------------------------------------------------
 void Vector::mousePressed(int x, int y, int button){
-    //store the last mouse point when it's first pressed to prevent popping
 	lastMouse = ofVec2f(x,y);
 }
 

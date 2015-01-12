@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6FCB6F1B-85C6-44E2-96D0-8B799CC929DB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LegoFont0_W01</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2AF4958A-6C94-42BE-A585-6455DA4D228A</key>
+		<string>https://github.com/TarGz/LegoFont.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>LegoFont0_W01.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2AF4958A-6C94-42BE-A585-6455DA4D228A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/TarGz/LegoFont.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2AF4958A-6C94-42BE-A585-6455DA4D228A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2AF4958A-6C94-42BE-A585-6455DA4D228A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LegoFont0_W01</string>
+		</dict>
+	</array>
+</dict>
+</plist>
