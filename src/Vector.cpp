@@ -15,11 +15,13 @@ void Vector::setup(){
     float studDiameter;
     float studHeight;
     
-     ofLog(OF_LOG_NOTICE, "brickWidth " + ofToString(brickWidth));
+//     ofLog(OF_LOG_NOTICE, "brickWidth " + ofToString(brickWidth));
     
     // CAM
     cam.setDistance(3000);
     
+    // MESH MODE
+//    mesh.setMode(OF_PRIMITIVE_POINTS);
     
 	ofBackground(100, 100, 100);
     ofEnableAlphaBlending();
@@ -33,6 +35,10 @@ void Vector::setup(){
         ofMesh front;
         ofMesh back;
         ofMesh side;
+        
+        // MODE
+//        front.setMode(OF_PRIMITIVE_POINTS);
+        
         
         ofLog(OF_LOG_NOTICE, "i: " + ofToString(i));
         // GET PATH
@@ -81,8 +87,19 @@ void Vector::setup(){
         }
         // Push sides
         meshes.push_back( front );
-        meshes.push_back( back  );
-        meshes.push_back( side );
+//        meshes.push_back( back  );
+//        meshes.push_back( side );
+        
+        
+        
+        for (int x = 0; x < meshes.size(); x++){
+            vector< ofVec3f > verts = meshes[x].getVertices();
+            for (int y = 0; y < verts.size(); y++){
+                ofLog(OF_LOG_NOTICE, "x:" + ofToString(x) + " y: " + ofToString(y));
+                mesh.addVertex(verts[y]);
+            }
+            
+        }
 
 	}
 }
@@ -100,9 +117,13 @@ void Vector::draw(){
     ofRotateX(180);
 	
     for (int i = 0; i < meshes.size(); i++){
-        meshes[i].drawWireframe();
+//        meshes[i].drawWireframe();
         meshes[i].drawFaces();
+//        meshes[i].drawVertices();
     }
+    
+//    mesh.drawFaces();
+    mesh.drawWireframe();
     cam.end();
 
 }
