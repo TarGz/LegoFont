@@ -29,6 +29,7 @@ void Vector::setup(){
     // PLATE
 	svg.load("map_all.svg");
 	for (int i = 0; i < svg.getNumPath(); i++){
+        ofMesh shape;
         ofMesh front;
         ofMesh back;
         ofMesh side;
@@ -48,6 +49,7 @@ void Vector::setup(){
         // push the vertices of the back face back by depth
         for(int j=0; j< front.getNumVertices(); j++)
         {
+            
             v[j].z += plateHeight;
         }
         
