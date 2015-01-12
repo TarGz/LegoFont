@@ -22,15 +22,16 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
+    void drawInteractionArea();
     ofxSVG svg;
     float step;
+
     vector<ofPolyline> outlines;
     
+    bool shift;
     ofMesh mesh;
 
-    ofMesh front;
-    ofMesh back;
-    ofMesh side;
+
     vector<ofMesh> meshes;
     
     int plateDepth;
@@ -48,4 +49,6 @@ public:
     ofQuaternion curRot;
     ofVec2f lastMouse;
     float dampen;
+    
+    ofEasyCam cam;
 };
