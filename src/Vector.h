@@ -3,6 +3,9 @@
 #include "ofMain.h"
 #include "ofxSvg.h"
 #include "ofMesh.h"
+//#include "ofxMesh.h"
+#include "ofTessellator.h"
+#include "ofxSTL.h"
 
 
 class Vector : public ofBaseApp{
@@ -25,13 +28,16 @@ public:
     void drawInteractionArea();
     ofxSVG svg;
     float step;
-
+    ofVbo vbo;
     vector<ofPolyline> outlines;
     
     bool shift;
     ofMesh mesh;
-
-
+    ofMesh shape;
+    ofMesh front;
+    ofMesh back;
+    ofMesh side;
+    ofLight light;
     vector<ofMesh> meshes;
     
     int plateDepth;
@@ -51,4 +57,8 @@ public:
     float dampen;
     
     ofEasyCam cam;
+    
+    ofxSTLImporter stlImporter;
+	ofxSTLExporter stlExporter;
+    bool bSaveModel;
 };
